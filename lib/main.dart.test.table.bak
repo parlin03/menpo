@@ -1,0 +1,91 @@
+import 'package:english_words/english_words.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => MyAppState(),
+      child: MaterialApp(
+        title: 'Management Project',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(),
+      ),
+    );
+  }
+}
+
+class MyAppState extends ChangeNotifier {
+  var current = WordPair.random();
+
+  void getNext() {
+    current = WordPair.random();
+    notifyListeners();
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Rencana Anggaran Biaya"),
+      ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          columns: <DataColumn>[
+            DataColumn(label: Text("No")),
+            DataColumn(label: Text("Jenis Pekerjaan")),
+            DataColumn(label: Text("Satuan")),
+            DataColumn(label: Text("VOLUME")),
+            DataColumn(label: Text("HARGA SATUAN")),
+            DataColumn(label: Text("JUMLAH HARGA")),
+          ],
+          rows: <DataRow>[
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text("1")),
+                DataCell(Text("Frozen Yogurt")),
+                DataCell(Text("159")),
+                DataCell(Text("6.0")),
+                DataCell(Text("4.0")),
+                DataCell(Text("4.0")),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text("2")),
+                DataCell(Text("Ice Cream Sandwich")),
+                DataCell(Text("237")),
+                DataCell(Text("9.0")),
+                DataCell(Text("4.3")),
+                DataCell(Text("4.3")),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text("3")),
+                DataCell(Text("Eclair")),
+                DataCell(Text("262")),
+                DataCell(Text("16.0")),
+                DataCell(Text("6.0")),
+                DataCell(Text("6.0")),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
